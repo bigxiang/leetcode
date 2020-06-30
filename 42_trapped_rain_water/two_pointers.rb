@@ -1,3 +1,10 @@
+#
+# @lc app=leetcode id=42 lang=ruby
+#
+# [1021] Remove Outermost Parentheses
+#
+
+# @lc code=start
 # @param {Integer[]} height
 # @return {Integer}
 def trap(height)
@@ -29,3 +36,4 @@ def trap(height)
 
   water_trapped
 end
+# @lc code=end

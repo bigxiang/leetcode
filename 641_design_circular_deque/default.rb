@@ -1,3 +1,10 @@
+#
+# @lc app=leetcode id=641 lang=ruby
+#
+# [1021] Remove Outermost Parentheses
+#
+
+# @lc code=start
 class MyCircularDeque
 
   attr_reader :elements, :front_index, :last_index, :size
@@ -129,3 +136,5 @@ end
 # param_6 = obj.get_rear()
 # param_7 = obj.is_empty()
 # param_8 = obj.is_full()
+
+# @lc code=end

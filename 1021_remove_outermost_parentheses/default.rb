@@ -1,5 +1,12 @@
+#
+# @lc app=leetcode id=1021 lang=ruby
+#
+# [1021] Remove Outermost Parentheses
+#
+
+# @lc code=start
 # @param {String} s
-# @return {String}
+# @return {String
 def remove_outer_parentheses(s)
   parentheses_stack = []
   result = ''
@@ -19,3 +26,4 @@ def remove_outer_parentheses(s)
 
   result
 end
+# @lc code=end
