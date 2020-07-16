@@ -31,7 +31,7 @@ def travel(node, p, q, result)
   right_found = travel(node.right, p, q, result)
   node_found = (node == p || node == q)
 
-  result.val = node.val if [left_found, right_found, node_found].count { |f| f } >= 2
+  result.val = node.val if [left_found, right_found, node_found].count { |f| f } == 2
 
   left_found || right_found || node_found
 end
