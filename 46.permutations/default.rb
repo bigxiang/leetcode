@@ -8,24 +8,20 @@
 # @param {Integer[]} nums
 # @return {Integer[][]}
 def permute(nums)
-  return [[]] if nums.size == 0
-
-  result = []
-
-  dfs(nums, 1, nums.size, [], result)
-
-  result
+  dfs(nums, [])
 end
 
-def dfs(nums, level, max_level, path, result)
-  return result << path if level > max_level
+def dfs(nums, selected_nums, result = [])
+  return result << selected_nums if nums.empty?
 
-  nums.each do |n|
-    next if path.index(n)
+  nums.each_with_index do |n, i|
+    new_selected_nums = selected_nums.dup << n
+    new_nums = nums.dup.tap { |a| a.delete_at(i) }
 
-    new_path = path.dup << n
-    dfs(nums, level+1, max_level, new_path, result)
+    dfs(new_nums, new_selected_nums, result)
   end
+
+  result
 end
 # @lc code=end
 
