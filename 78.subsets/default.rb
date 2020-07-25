@@ -18,7 +18,7 @@ end
 def dfs(nums, level, max_level, path, result)
   return result << path if level > max_level
 
-  (nums - path).each_with_index do |n, i|
+  nums.each_with_index do |n, i|
     dfs(nums[i+1..-1], level + 1, max_level, (path.dup << n), result)
   end
 end
