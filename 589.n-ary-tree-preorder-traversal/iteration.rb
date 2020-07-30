@@ -17,33 +17,17 @@
 # @param {Node} root
 # @return {List[int]}
 def preorder(root)
+  return [] if root.nil?
+
   result = []
-  visited = {}
-  node = root
-  parent = nil
-  while node
+  stack = [root]
+  while stack.any?
+    node = stack.pop
     result << node.val
-    visited[node] = parent
 
-    node.children.each do |child|
-      next if visited[child]
-
-      parent = node
-      node = child
-    end
-
-    if 
-    node = parent
-    parent = visited[parent]
-
-
-    if node
-      parent = visited[node]
-      puts node.val, parent.val
-    else
-
-    end
+    node.children.reverse_each { |c| stack.push(c) }
   end
+
   result
 end
 # @lc code=end
