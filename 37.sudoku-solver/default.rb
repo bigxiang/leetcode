@@ -22,6 +22,7 @@ class Sudoku
     @rows = Array.new(9) { Set.new }
     @cols = Array.new(9) { Set.new }
     @blks = Array.new(9) { Set.new }
+    # @times = 0
 
     board.each_with_index do |row, i|
       row.each_with_index do |cell, j|
@@ -59,6 +60,7 @@ class Sudoku
   end
 
   def assign_digit(i, j ,digit)
+    # puts "attemption: #{i}, #{j}, #{digit}, #{@times += 1}"
     board[i][j] = digit
     rows[i] << digit
     cols[j] << digit
