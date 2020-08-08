@@ -12,30 +12,37 @@ def ladder_length(begin_word, end_word, word_list)
   word_set = Set.new(word_list)
   return 0 if !word_set.include?(end_word)
 
-  current_level = [[begin_word, 1]]
-  while current_level.any?
-    new_level = []
-    current_level.each do |(word, level)|
+  start_set = Set.new([begin_word])
+  end_set = Set.new([end_word])
+  length = 1
+  while start_set.any? && end_set.any?
+    length += 1
+    if start_set.size > end_set.size
+      start_set, end_set = end_set, start_set
+    end
+
+    new_set = Set.new
+    start_set.each do |word|
       word.chars.each_with_index do |c, i|
         ('a'..'z').each do |new_c|
           next if c == new_c
 
           new_word = word[0...i] + new_c + word[i+1..-1]
-          if new_word == end_word
-            return level + 1
+          if end_set.include?(new_word)
+            return length
           elsif word_set.include?(new_word)
-            new_level << [new_word, level + 1]
+            new_set << new_word
             word_set.delete(new_word)
           end
         end
       end
     end
-    current_level = new_level
+    start_set = new_set
   end
   0
 end
-
 # @lc code=end
-puts ladder_length("hot",
-  "dog",
-  ["hot","dog"])
+
+# puts ladder_length("hot",
+#   "dog",
+#   ["hot","dog"])
