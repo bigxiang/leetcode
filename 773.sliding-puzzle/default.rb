@@ -22,10 +22,9 @@ def sliding_puzzle(board)
   return 0 if serialized_board == '123450'
 
   queue = [[serialized_board, 0]]
-  visited = Set.new
+  visited = Set.new([serialized_board])
   while queue.any?
     cur_board, steps = queue.shift
-    visited << cur_board
     zero_pos = cur_board.index('0')
     MOVES[zero_pos].each do |move|
       new_board = cur_board.dup
@@ -35,6 +34,7 @@ def sliding_puzzle(board)
         return steps + 1
       elsif !visited.include?(new_board)
         queue << [new_board, steps + 1]
+        visited << new_board
       end
     end
   end
