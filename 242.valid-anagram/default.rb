@@ -9,18 +9,16 @@
 # @param {String} t
 # @return {Boolean}
 def is_anagram(s, t)
-  chars_count_map =
-    s.chars.each_with_object(Hash.new(0)) do |c, memo|
-      memo[c] += 1
-    end
+  return false if s.size != t.size
+
+  chars_map = s.chars.each_with_object(Hash.new(0)) { |c, memo| memo[c] += 1 }
 
   t.chars.each do |c|
-    return false unless chars_count_map.key?(c)
-
-    chars_count_map[c] -= 1 if chars_count_map[c] > 0
+    chars_map[c] -= 1
+    return false if chars_map[c] < 0
   end
 
-  !chars_count_map.values.any? { |count| count > 0 }
+  true
 end
 # @lc code=end
 
