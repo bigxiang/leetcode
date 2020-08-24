@@ -8,18 +8,16 @@
 # @param {String} s
 # @return {Integer}
 def num_decodings(s)
-  return 0 if s.nil? || s.empty?
-  return 0 if s[0] == '0'
+  return 0 if s.nil? || s.length == 0
 
-  dp = Array.new(s.length + 1, 0)
-  dp[0] = 1
-  dp[1] = 1
-  (2..s.length).each do |i|
-    dp[i] += dp[i-1] if s[i-1] != '0'
-    dp[i] += dp[i-2] if s[i-2..i-1].to_i <= 26 && s[i-2..i-1].to_i >= 10
+  dp = Array.new(s.length + 1, 0).tap { |a| a[0] = 1 }
+
+  s.length.times do |i|
+    dp[i+1] = dp[i-1] if i > 0 && s[i-1,2].to_i <= 26 && s[i-1,2].to_i >= 10
+    dp[i+1] += dp[i] if s[i] != '0'
   end
 
-  dp[-1]
+  dp[s.length]
 end
 # @lc code=end
 
