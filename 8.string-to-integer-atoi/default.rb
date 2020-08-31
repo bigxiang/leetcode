@@ -12,23 +12,14 @@ def my_atoi(str)
   int_max = 2 ** 31 - 1
   num = 0
   sign = 1
-  leading_sign = true
-  leading_space = true
 
-  str.chars.each do |c|
-    next if leading_space && c == ' '
-    leading_space = false
-
-    if leading_sign
-      leading_sign = false
+  str.strip.chars.each_with_index do |c, i|
+    if i.zero?
       if c == '-'
         sign = -1
         next
       elsif c == '+'
-        sign = 1
         next
-      else
-        sign = 1
       end
     end
 
