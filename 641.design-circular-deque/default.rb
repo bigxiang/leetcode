@@ -1,7 +1,7 @@
 #
 # @lc app=leetcode id=641 lang=ruby
 #
-# [1021] Remove Outermost Parentheses
+# [641] Design Circular Deque
 #
 
 # @lc code=start
