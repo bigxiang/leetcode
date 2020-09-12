@@ -6,12 +6,29 @@
 
 # @lc code=start
 class Trie
+    class Node
+      attr_reader :children
 
+      def initialize
+        @children = Array.new(26)
+        @is_word = false
+      end
+
+      def word?
+        @is_word
+      end
+
+      def set_to_word
+        @is_word = true
+      end
+    end
+
+    attr_reader :root
 =begin
     Initialize your data structure here.
 =end
-    def initialize()
-        @root = TrieNode.new
+    def initialize
+      @root = Node.new
     end
 
 
@@ -21,17 +38,11 @@ class Trie
     :rtype: Void
 =end
     def insert(word)
-        current_node = @root
+        curr = root
         word.chars.each do |c|
-            if current_node.children.key?(c)
-                current_node = current_node.children[c]
-            else
-                new_node = TrieNode.new
-                current_node.children[c] = new_node
-                current_node = new_node
-            end
+          curr = (curr.children[c.ord - 'a'.ord] ||= Node.new)
         end
-        current_node.word = true
+        curr.set_to_word
     end
 
 
@@ -41,15 +52,7 @@ class Trie
     :rtype: Boolean
 =end
     def search(word)
-        current_node = @root
-        word.chars.each do |c|
-            if current_node.children.key?(c)
-                current_node = current_node.children[c]
-            else
-                return false
-            end
-        end
-        current_node.word?
+      search_word(word)
     end
 
 
@@ -59,30 +62,19 @@ class Trie
     :rtype: Boolean
 =end
     def starts_with(prefix)
-        current_node = @root
-        prefix.chars.each do |c|
-            if current_node.children.key?(c)
-                current_node = current_node.children[c]
-            else
-                return false
-            end
-        end
-        true
+      search_word(prefix, true)
     end
 
+    private
 
-end
-
-class TrieNode
-  attr_accessor :word, :children
-
-  def initialize(children = {})
-    @children = children
-  end
-
-  def word?
-    !@word.nil?
-  end
+    def search_word(word, prefix = false)
+      curr = root
+      word.chars.each do |c|
+        curr = curr.children[c.ord - 'a'.ord]
+        return false if curr.nil?
+      end
+      prefix || curr.word?
+    end
 end
 
 # Your Trie object will be instantiated and called as such:
