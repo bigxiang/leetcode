@@ -13,7 +13,6 @@ def remove_duplicates(s)
   (1...s.length).each do |i|
     next if s[i] != s[i-1]
 
-    keep_indexes.delete(i-1)
     keep_indexes.delete(i)
     found = true
   end
