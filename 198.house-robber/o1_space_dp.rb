@@ -36,11 +36,10 @@ def rob(nums)
   prev_max = 0
   curr_max = 0
 
-  (0..nums.size-1).each do | i|
+  (0..nums.size - 1).each do |i|
     prev_max, curr_max = curr_max, [curr_max, prev_max + nums[i]].max
   end
 
   curr_max
 end
 # @lc code=end
-

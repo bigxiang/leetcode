@@ -21,14 +21,11 @@ def two_sum(nums, target)
       hi = mid
     elsif nums[mid] + nums[hi] <= target
       lo = mid
+    elsif nums[lo] + nums[hi] < target
+      lo += 1
     else
-      if nums[lo] + nums[hi] < target
-        lo += 1
-      else
-        hi -= 1
-      end
+      hi -= 1
     end
   end
 end
 # @lc code=end
-

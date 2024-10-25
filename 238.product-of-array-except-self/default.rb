@@ -4,6 +4,9 @@
 # [238] Product of Array Except Self
 #
 
+# @lcpr-template-start
+
+# @lcpr-template-end
 # @lc code=start
 # @param {Integer[]} nums
 # @return {Integer[]}
@@ -13,12 +16,12 @@ def product_except_self(nums)
 
   prefix_products[0] = 1
   (1...nums.size).each do |i|
-    prefix_products[i] = prefix_products[i-1] * nums[i-1]
+    prefix_products[i] = prefix_products[i - 1] * nums[i - 1]
   end
 
-  suffix_products[nums.size-1] = 1
-  (nums.size-2).downto(0) do |i|
-    suffix_products[i] = suffix_products[i+1] * nums[i+1]
+  suffix_products[nums.size - 1] = 1
+  (nums.size - 2).downto(0) do |i|
+    suffix_products[i] = suffix_products[i + 1] * nums[i + 1]
   end
 
   (0...nums.size).map do |i|
@@ -26,4 +29,3 @@ def product_except_self(nums)
   end
 end
 # @lc code=end
-

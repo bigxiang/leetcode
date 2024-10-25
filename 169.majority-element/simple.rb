@@ -8,7 +8,12 @@
 # @param {Integer[]} nums
 # @return {Integer}
 def majority_element(nums)
-  nums_count_map = nums.each_with_object(Hash.new(0)) { |n, h| h[n] += 1 }
-  nums_count_map.select { |n, c| c > nums.size / 2 }.keys.first
+  count = 0
+  temp = nil
+  nums.each do |n|
+    temp = n if count.zero?
+    count += n == temp ? 1 : -1
+  end
+  temp
 end
 # @lc code=end
