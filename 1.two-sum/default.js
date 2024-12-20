@@ -16,13 +16,12 @@
  * @return {number[]}
  */
 var twoSum = function(nums, target) {
-  let hash = new Map();
+  let exist = new Map();
   for (let i = 0; i < nums.length; i++) {
-    if (hash.has(target - nums[i])) {
-      return ([hash.get(target - nums[i]), i]);
-    } else {
-      hash.set(nums[i], i);
+    if (exist.has(target - nums[i])) {
+      return [exist.get(target - nums[i]), i];
     }
+    else exist.set(nums[i], i);
   }
 };
 // @lc code=end

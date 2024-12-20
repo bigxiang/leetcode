@@ -15,40 +15,33 @@
  * @return {number}
  */
 var myAtoi = function(s) {
-  const min = -(2 ** 31);
-  const max = (2 ** 31) - 1;
-  let res = 0;
-  let leading = true;
+  const min = - (2 ** 31);
+  const max = 2 ** 31 - 1;
   let sign = 1;
-
+  let result = 0;
+  let leading = true;
   for (let i = 0; i < s.length; i++) {
-    const c = s[i];
-
-    if (c === ' ') {
+    if (s[i] === ' ') {
       if (leading) continue;
-      return res;
+      else break;
     }
-    else if (c === '-' || c === '+') {
+    else if (s[i] === '-' || s[i] === '+') {
       if (leading) {
-        sign = c === '-' ? -1 : 1;
+        sign = s[i] === '-' ? -1 : 1;
         leading = false;
       }
-      else {
-        return res;
-      }
+      else break;
     }
-    else if (c >= '0' && c <= '9') {
-      res = res * 10 + (c.charCodeAt(0) - '0'.charCodeAt(0)) * sign;
+    else if (s[i] >= '0' && s[i] <= 9) {
       leading = false;
-      if (res > max) return max;
-      if (res < min) return min;
+      result = result * 10 + sign * Number(s[i]);
+      if (result >= max) return max;
+      if (result <= min) return min;
     }
-    else {
-      return res;
-    }
+    else break;
   }
 
-  return res;
+  return result;
 };
 // @lc code=end
 
