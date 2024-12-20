@@ -16,33 +16,38 @@
  * @return {boolean}
  */
 var canFinish = function(numCourses, prerequisites) {
-  const coursesAdj = Array.from({ length: numCourses }, () => []);
+  const inAdj = Array.from({ length: numCourses }, () => []);
+  const outAdj = Array.from({ length: numCourses }, () => []);
   prerequisites.forEach(([u, v]) => {
-    coursesAdj[u].push(v);
+    inAdj[u].push(v);
+    outAdj[v].push(u);
   })
-  const visited = Array.from({ length: numCourses }, () => 0);
+  const inDegrees = inAdj.map(adj => adj.length);
+  const queue = [];
   for (let i = 0; i < numCourses; i++) {
-    if (!dfs(coursesAdj, visited, i)) {
+    if (inDegrees[i] === 0) {
+      queue.push(i);
+    }
+  }
+  let queue_i = 0;
+  while (queue_i < queue.length) {
+    const i = queue[queue_i++];
+    for (const j of outAdj[i]) {
+      inDegrees[j]--;
+      if (inDegrees[j] === 0) {
+        queue.push(j);
+      }
+    }
+  }
+
+  for (let i = 0; i < numCourses; i++) {
+    if (inDegrees[i] !== 0) {
       return false;
     }
   }
+
   return true;
 };
-
-var dfs = function(coursesAdj, visited, i) {
-  if (visited[i] === 1) return false;
-  if (visited[i] === 2) return true;
-
-  visited[i] = 1;
-  for (course of coursesAdj[i]) {
-    if (!dfs(coursesAdj, visited, course)) {
-      return false;
-    }
-  }
-
-  visited[i] = 2;
-  return true;
-}
 // @lc code=end
 
 
