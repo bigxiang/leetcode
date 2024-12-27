@@ -15,25 +15,23 @@
  * @return {number}
  */
 var longestSubarray = function(nums) {
-  let result = 0;
-  let left = 0, right = 0;
-  let deleted = false;
-  let zeroPos = 0;
+  let left = 0, right = 0, zeroIndex = -1, result = 0;
   while (right <= nums.length) {
-    if (nums[right] === 1) {
-      right++;
+    if (right === nums.length) {
+      result = Math.max(result, right - left - 1);
+      return result;
     }
-    else if (deleted || right == nums.length) {
-      result = Math.max(result, right - left - 1)
-      left = zeroPos + 1;
-      zeroPos = right;
-      right++;
+
+    if (nums[right] !== 1) {
+      if (zeroIndex !== -1) {
+        result = Math.max(result, right - left - 1);
+        left = zeroIndex + 1;
+      }
+
+      zeroIndex = right;
     }
-    else {
-      deleted = true;
-      zeroPos = right;
-      right++;
-    }
+
+    right++;
   }
 
   return result;

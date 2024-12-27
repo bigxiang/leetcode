@@ -16,52 +16,48 @@
  */
 var minAnagramLength = function(s) {
   const charCount = new Array(26).fill(0);
+
   for (let i = 0; i < s.length; i++) {
     charCount[s.charCodeAt(i) - 'a'.charCodeAt(0)]++;
   }
 
-  let maxChunks;
+  let maxChunks = s.length;
   for (let i = 0; i < 26; i++) {
-    if (charCount[i] === 0) {
-      continue;
-    }
+    if (charCount[i] === 0) continue;
 
-    maxChunks = maxChunks ? gcd(maxChunks, charCount[i]) : charCount[i];
+    maxChunks = gcd(maxChunks, charCount[i]);
   }
 
-  if (maxChunks === 1) return s.length;
-
-  for (let chunks = maxChunks; chunks >= 2; chunks--) {
-    if (Math.floor(s.length / chunks) * chunks !== s.length) continue;
-
-    if (anagram(s, chunks)) {
-      return s.length / chunks;
-    }
+  for (let i = maxChunks; i >= 1; i--) {
+    if (allAnagram(s, i)) return s.length / i;
   }
-
-  return s.length;
 };
 
-var anagram = function(s, chunks) {
+var allAnagram = function(s, chunks) {
+  const sLength = s.length;
+  const substrLength = sLength / chunks;
+  if (substrLength !== Math.floor(substrLength)) return false;
+
   const charCount = new Array(26).fill(0);
-  for (let i = 0; i < s.length / chunks; i++) {
+  for (let i = 0; i < substrLength; i++) {
     charCount[s.charCodeAt(i) - 'a'.charCodeAt(0)]++;
   }
 
-  for (let c = 1; c < chunks; c++) {
-    const tCharCount = new Array(26).fill(0);
-    for (let i = s.length / chunks * c; i < s.length / chunks * (c + 1); i++) {
-      tCharCount[s.charCodeAt(i) - 'a'.charCodeAt(0)]++;
-    }
-
-    for (let i = 0; i < 26; i++) {
-      if (charCount[i] !== tCharCount[i]) {
-        return false;
-      }
+  for (let c = 2; c <= chunks; c++) {
+    if (!anagram([...charCount], s, (c - 1) * substrLength, substrLength)) {
+      return false;
     }
   }
 
   return true;
+}
+
+var anagram = function(charCount, s, start, length) {
+  for (let i = start; i < start + length; i++) {
+    charCount[s.charCodeAt(i) - 'a'.charCodeAt(0)]--;
+  }
+
+  return charCount.every(count => count === 0);
 }
 
 var gcd = function(a, b) {
