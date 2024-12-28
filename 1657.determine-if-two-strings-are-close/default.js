@@ -18,23 +18,26 @@
 var closeStrings = function(word1, word2) {
   if (word1.length !== word2.length) return false;
 
-  const word1Count = new Array(26).fill(0);
-  for (c of word1) word1Count[c.charCodeAt() - 'a'.charCodeAt()]++;
-  const word1CountMap = new Map();
-  for (let i = 0; i < word1Count.length; i++) {
-    if (word1Count[i] !== 0) word1CountMap.set(word1Count[i], (word1CountMap.get(word1Count[i]) || 0) + 1);
+  const count1 = new Array(26).fill(0);
+  const count2 = new Array(26).fill(0);
+
+  for (let i = 0; i < word1.length; i++) {
+    count1[word1.charCodeAt(i) - 'a'.charCodeAt(0)]++;
+    count2[word2.charCodeAt(i) - 'a'.charCodeAt(0)]++;
   }
 
-  const word2Count = new Array(26).fill(0);
-  for (c of word2) word2Count[c.charCodeAt() - 'a'.charCodeAt()]++;
-  for (let i = 0; i < word2Count.length; i++) {
-    if (word2Count[i] !== 0) {
-      if (word1Count[i] === 0) return false;
-      if (!word1CountMap.has(word2Count[i])) return false;
+  const countMap = new Map();
+  for (let i = 0; i < 26; i++) {
+    if (count1[i] === 0 && count2[i] !== 0 || count1[i] !== 0 && count2[i] === 0) return false;
 
-      word1CountMap.set(word2Count[i], word1CountMap.get(word2Count[i]) - 1);
-      if (word1CountMap.get(word2Count[i]) === 0) word1CountMap.delete(word2Count[i]);
-    }
+    if (count1[i] === 0) continue;
+
+    countMap.set(count1[i], (countMap.get(count1[i]) || 0) + 1);
+    countMap.set(count2[i], (countMap.get(count2[i]) || 0) - 1);
+  }
+
+  for (let [_count, times] of countMap) {
+    if (times !== 0) return false;
   }
 
   return true;
@@ -57,4 +60,8 @@ var closeStrings = function(word1, word2) {
 
 // @lcpr case=start
 // "uau"\n"ssx"\n
+// @lcpr case=end
+
+// @lcpr case=start
+// "abbzzca"\n"babzzcz"\n
 // @lcpr case=end

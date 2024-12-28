@@ -15,19 +15,21 @@
  * @return {number}
  */
 var pivotIndex = function(nums) {
-  const leftPre = new Array(nums.length).fill(0);
-  const rightPre = new Array(nums.length).fill(0);
+  const leftPres = new Array(nums.length).fill(0);
+  const rightPres = new Array(nums.length).fill(0);
 
   for (let i = 1; i < nums.length; i++) {
-    leftPre[i] = leftPre[i - 1] + nums[i - 1];
+    leftPres[i] = leftPres[i-1] + nums[i-1];
   }
 
   for (let i = nums.length - 2; i >= 0; i--) {
-    rightPre[i] = rightPre[i + 1] + nums[i + 1];
+    rightPres[i] = rightPres[i+1] + nums[i+1];
   }
 
   for (let i = 0; i < nums.length; i++) {
-    if (leftPre[i] === rightPre[i]) return i;
+    if (leftPres[i] === rightPres[i]) {
+      return i;
+    }
   }
 
   return -1;

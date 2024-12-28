@@ -17,15 +17,14 @@
 var asteroidCollision = function(asteroids) {
   const result = [];
   let i = 0;
-
   while (i < asteroids.length) {
     while (result.length > 0 && result[result.length - 1] > 0 && asteroids[i] < 0) {
-      if (result[result.length - 1] < -asteroids[i]) {
-        result.pop();
-      }
-      else if (result[result.length - 1] === -asteroids[i]) {
+      if (result[result.length - 1] === -asteroids[i]) {
         result.pop();
         i++;
+      }
+      else if (result[result.length - 1] < -asteroids[i]) {
+        result.pop();
       }
       else {
         i++;
@@ -33,8 +32,7 @@ var asteroidCollision = function(asteroids) {
     }
 
     if (i < asteroids.length) {
-      result.push(asteroids[i]);
-      i++;
+      result.push(asteroids[i++]);
     }
   }
 

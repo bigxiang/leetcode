@@ -17,32 +17,19 @@
  * @return {number[]}
  */
 var occurrencesOfElement = function(nums, queries, x) {
-  const numIndexes = new Map();
+  const numsIndexMap = new Map();
   for (let i = 0; i < nums.length; i++) {
-    if (!numIndexes.has(nums[i])) {
-      numIndexes.set(nums[i], [i])
-    }
-    else {
-      numIndexes.get(nums[i]).push(i);
-    }
+    if (numsIndexMap.has(nums[i])) numsIndexMap.get(nums[i]).push(i);
+    else numsIndexMap.set(nums[i], [i]);
   }
+
+  if (!numsIndexMap.has(x)) return new Array(queries.length).fill(-1);
 
   const result = [];
   for (let i = 0; i < queries.length; i++) {
-    if (!numIndexes.has(x)) {
-      result.push(-1);
-    }
-    else {
-      const numIndexX = numIndexes.get(x);
-      const index = queries[i] - 1;
-
-      if (index >= numIndexX.length) {
-        result.push(-1);
-      }
-      else {
-        result.push(numIndexX[index]);
-      }
-    }
+    const numIndexes = numsIndexMap.get(x);
+    if (queries[i] - 1 >= numIndexes.length) result.push(-1);
+    else result.push(numIndexes[queries[i] - 1]);
   }
 
   return result;

@@ -20,8 +20,8 @@ var findDifference = function(nums1, nums2) {
   const nums2Set = new Set(nums2);
 
   return [
-    Array.from(nums1Set).filter((n) => !nums2Set.has(n)),
-    Array.from(nums2Set).filter((n) => !nums1Set.has(n))
+    Array.from(nums1Set).filter(x => !nums2Set.has(x)),
+    Array.from(nums2Set).filter(x => !nums1Set.has(x))
   ]
 };
 // @lc code=end
