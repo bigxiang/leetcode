@@ -17,35 +17,13 @@
 var increasingTriplet = function(nums) {
   if (nums.length < 3) return false;
 
-  let i = 0, j = 1, k = 2;
-  while (k < nums.length) {
-    if (nums[i] < nums[j] && nums[j] < nums[k]) return true;
-    if (nums[i] >= nums[j]) {
-      if (nums[j] >= nums[k]) {
-        i = k;
-        j = i + 1;
-        k = i + 2;
-      }
-      else {
-        i = j;
-        j = k;
-        k++;
-      }
-    }
-    else {
-      if (k - j === 1) k++;
-      else {
-        if (nums[k-1] >= nums[k]) {
-          if (nums[k-1] < nums[j] && nums[k-1] > nums[i]) j = k-1;
-          k++;
-        }
-        else {
-          j = k - 1;
-        }
-      }
-    }
+  let first = nums[0], second = Number.MAX_SAFE_INTEGER;
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] > second) return true;
+    if (nums[i] > first && nums[i] < second) second = nums[i];
+    if (nums[i] < first) first = nums[i];
   }
-  return false
+  return false;
 };
 // @lc code=end
 

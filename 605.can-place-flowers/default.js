@@ -16,20 +16,23 @@
  * @return {boolean}
  */
 var canPlaceFlowers = function(flowerbed, n) {
-  let availablePlot = 0;
-  let maxFlowers = 0;
+  const availableBeds = [];
+  let bed = [];
   for (let i = 0; i < flowerbed.length; i++) {
-    if (flowerbed[i] === 0 &&
-      (i === 0 || flowerbed[i-1] !== 1) &&
-      (i === flowerbed.length - 1 || flowerbed[i+1] !== 1)
-    ) availablePlot++;
-    else {
-      maxFlowers += Math.floor((availablePlot + 1) / 2);
-      availablePlot = 0;
+    if ((i === 0 || flowerbed[i - 1] === 0) && flowerbed[i] === 0) {
+      bed.push(0);
+    }
+
+    if (flowerbed[i] === 1) {
+      bed.pop();
+      if (bed.length > 0) availableBeds.push(bed);
+      bed = [];
     }
   }
-  maxFlowers += Math.floor((availablePlot + 1) / 2);
-  return maxFlowers >= n;
+
+  if (bed.length > 0) availableBeds.push(bed);
+
+  return availableBeds.map((bed) => Math.round(bed.length / 2)).reduce((a, b) => a + b, 0) >= n;
 };
 // @lc code=end
 

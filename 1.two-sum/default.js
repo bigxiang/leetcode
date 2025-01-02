@@ -18,17 +18,15 @@
 var twoSum = function(nums, target) {
   let exist = new Map();
   for (let i = 0; i < nums.length; i++) {
-    if (exist.has(target - nums[i])) {
-      return [exist.get(target - nums[i]), i];
-    }
-    else exist.set(nums[i], i);
+    if (exist.has(target - nums[i])) return [exist.get(target - nums[i]), i];
+
+    exist.set(nums[i], i);
   }
 };
 // @lc code=end
 
 
 
-/*
 // @lcpr case=start
 // [2,7,11,15]\n9\n
 // @lcpr case=end
@@ -41,5 +39,4 @@ var twoSum = function(nums, target) {
 // [3,3]\n6\n
 // @lcpr case=end
 
- */
 
