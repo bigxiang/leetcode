@@ -4,6 +4,9 @@
 # [104] Maximum Depth of Binary Tree
 #
 
+# @lcpr-template-start
+
+# @lcpr-template-end
 # @lc code=start
 # Definition for a binary tree node.
 # class TreeNode

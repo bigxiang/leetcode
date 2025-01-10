@@ -4,6 +4,9 @@
 # [100] Same Tree
 #
 
+# @lcpr-template-start
+
+# @lcpr-template-end
 # @lc code=start
 # Definition for a binary tree node.
 # class TreeNode
@@ -19,7 +22,7 @@
 # @return {Boolean}
 def is_same_tree(p, q)
   return false if p&.val != q&.val
+
   p.nil? && q.nil? || is_same_tree(p&.left, q&.left) && is_same_tree(p&.right, q&.right)
 end
 # @lc code=end
-
