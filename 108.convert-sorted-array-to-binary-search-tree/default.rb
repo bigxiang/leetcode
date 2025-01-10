@@ -4,6 +4,9 @@
 # [108] Convert Sorted Array to Binary Search Tree
 #
 
+# @lcpr-template-start
+
+# @lcpr-template-end
 # @lc code=start
 # Definition for a binary tree node.
 # class TreeNode
@@ -17,7 +20,7 @@
 # @param {Integer[]} nums
 # @return {TreeNode}
 def sorted_array_to_bst(nums)
-  convert_to_bst(nums, 0, nums.size-1)
+  convert_to_bst(nums, 0, nums.size - 1)
 end
 
 def convert_to_bst(nums, lo, hi)
@@ -25,10 +28,9 @@ def convert_to_bst(nums, lo, hi)
 
   mi = (lo + hi) / 2
   result = TreeNode.new(nums[mi])
-  result.left = convert_to_bst(nums, lo, mi-1)
-  result.right = convert_to_bst(nums, mi+1, hi)
+  result.left = convert_to_bst(nums, lo, mi - 1)
+  result.right = convert_to_bst(nums, mi + 1, hi)
   result
 end
 
 # @lc code=end
-

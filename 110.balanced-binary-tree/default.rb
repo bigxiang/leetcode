@@ -4,6 +4,9 @@
 # [110] Balanced Binary Tree
 #
 
+# @lcpr-template-start
+
+# @lcpr-template-end
 # @lc code=start
 # Definition for a binary tree node.
 # class TreeNode
@@ -17,15 +20,29 @@
 # @param {TreeNode} root
 # @return {Boolean}
 def is_balanced(root)
-  solve(root)[0]
+  dfs(root, 0)[0]
 end
 
-def solve(root)
-  return [true, 0] if root.nil?
+def dfs(root, level)
+  return [true, level] if root.nil?
 
-  left_balanced, left_height = solve(root.left)
-  right_balanced, right_height = solve(root.right)
-  height = [left_height, right_height].max + 1
-  [left_balanced && right_balanced && (left_height - right_height).abs <= 1, height]
+  left_balanced, left_level = dfs(root.left, level + 1)
+  right_balanced, right_level = dfs(root.right, level + 1)
+  diff = left_level - right_level
+  balanced = left_balanced && right_balanced && diff.abs <= 1
+
+  [balanced, [left_level, right_level].max]
 end
 # @lc code=end
+
+# @lcpr case=start
+# [1,2,2,3,3,null,null,4,4]\n
+# @lcpr case=end
+
+# @lcpr case=start
+# [3,9,20,null,null,15,7]\n
+# @lcpr case=end
+
+# @lcpr case=start
+# []\n
+# @lcpr case=end

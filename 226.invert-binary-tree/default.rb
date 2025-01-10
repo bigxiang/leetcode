@@ -1,7 +1,8 @@
 #
-# @lc app=leetcode id=102 lang=ruby
+# @lc app=leetcode.cn id=226 lang=ruby
+# @lcpr version=30204
 #
-# [102] Binary Tree Level Order Traversal
+# [226] 翻转二叉树
 #
 
 # @lcpr-template-start
@@ -18,34 +19,29 @@
 #     end
 # end
 # @param {TreeNode} root
-# @return {Integer[][]}
-def level_order(root)
-  result = []
+# @return {TreeNode}
+def invert_tree(root)
+  return if root.nil?
 
-  queue = [root]
-  while queue.any?
-    current_level = queue.dup
-    queue.clear
+  root.left, root.right = root.right, root.left
+  invert_tree(root.left)
+  invert_tree(root.right)
 
-    result << current_level.map do |node|
-      queue << node.left if node.left
-      queue << node.right if node.right
-      node.val
-    end
-  end
-
-  result
+  root
 end
 # @lc code=end
 
+#
 # @lcpr case=start
-# [1,2,2,3,3,null,null,4,4]\n
+# [4,2,7,1,3,6,9]\n
 # @lcpr case=end
 
 # @lcpr case=start
-# [3,9,20,null,null,15,7]\n
+# [2,1,3]\n
 # @lcpr case=end
 
 # @lcpr case=start
 # []\n
 # @lcpr case=end
+
+#
