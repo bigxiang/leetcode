@@ -4,6 +4,9 @@
 # [46] Permutations
 #
 
+# @lcpr-template-start
+
+# @lcpr-template-end
 # @lc code=start
 # @param {Integer[]} nums
 # @return {Integer[][]}
@@ -14,12 +17,25 @@ def permute(nums)
 end
 
 def dfs(nums, path, result)
-  return result << path.dup if path.size == nums.size
+  if nums.size == 0
+    result << path
+    return
+  end
 
-  (nums - path).each do |n|
-    dfs(nums, path << n, result)
-    path.pop
+  nums.each do |n|
+    dfs(nums.reject { |num| num == n }, path + [n], result)
   end
 end
 # @lc code=end
 
+# @lcpr case=start
+# [1,2,3]\n
+# @lcpr case=end
+
+# @lcpr case=start
+# [0,1]\n
+# @lcpr case=end
+
+# @lcpr case=start
+# [1]\n
+# @lcpr case=end
