@@ -1,7 +1,8 @@
 #
-# @lc app=leetcode id=206 lang=ruby
+# @lc app=leetcode.cn id=148 lang=ruby
+# @lcpr version=30204
 #
-# [206] Reverse Linked List
+# [148] 排序链表
 #
 
 # @lcpr-template-start
@@ -18,28 +19,21 @@
 # end
 # @param {ListNode} head
 # @return {ListNode}
-def reverse_list(head)
-  prev = nil
-  curr = head
-  while curr
-    nxt = curr.next
-    curr.next = prev
-    prev = curr
-    curr = nxt
-  end
-
-  prev
+def sort_list(head)
 end
 # @lc code=end
 
+#
 # @lcpr case=start
-# [1,2]\n
+# [4,2,1,3]\n
+# @lcpr case=end
+
+# @lcpr case=start
+# [-1,5,3,4,0]\n
 # @lcpr case=end
 
 # @lcpr case=start
 # []\n
 # @lcpr case=end
 
-# @lcpr case=start
-# [1,2,3,4,5]\n
-# @lcpr case=end
+#

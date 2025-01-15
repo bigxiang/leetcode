@@ -4,30 +4,34 @@
 # [22] Generate Parentheses
 #
 
+# @lcpr-template-start
+
+# @lcpr-template-end
 # @lc code=start
 # @param {Integer} n
 # @return {String[]}
 def generate_parenthesis(n)
-  dfs('(', 2 * n)
+  result = []
+  dfs('(', 1, 0, n, result)
+  result
 end
 
-def dfs(current, max)
-  return is_valid?(current) ? [current] : [] if current.length == max
-
-  dfs(current + '(', max) + dfs(current + ')', max)
-end
-
-def is_valid?(s)
-  stack = []
-  s.chars.each do |c|
-    if c == '('
-      stack.push(c)
-    elsif stack.pop != '('
-      return false
-    end
+def dfs(path, left, right, n, result)
+  if left == n && right == n
+    result << path
+    return
   end
-  stack.empty?
+
+  dfs(path + '(', left + 1, right, n, result) if left < n
+  dfs(path + ')', left, right + 1, n, result) if right < left
 end
+
 # @lc code=end
 
-puts generate_parenthesis(3)
+# @lcpr case=start
+# 3\n
+# @lcpr case=end
+
+# @lcpr case=start
+# 1\n
+# @lcpr case=end

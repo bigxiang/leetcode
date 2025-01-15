@@ -1,7 +1,8 @@
 #
-# @lc app=leetcode id=24 lang=ruby
+# @lc app=leetcode.cn id=876 lang=ruby
+# @lcpr version=30204
 #
-# [24] Swap Nodes in Pairs
+# [876] 链表的中间结点
 #
 
 # @lcpr-template-start
@@ -18,36 +19,34 @@
 # end
 # @param {ListNode} head
 # @return {ListNode}
-def swap_pairs(head)
+def middle_node(head)
   dummy = ListNode.new
   dummy.next = head
-  slow = dummy
   fast = dummy
-  prev = dummy
+  slow = head
   while fast.next && fast.next.next
     slow = slow.next
     fast = fast.next.next
-
-    slow.next = fast.next
-    fast.next = slow
-    prev.next = fast
-    prev = slow
-    fast = slow
   end
-  dummy.next
+  slow
 end
 # @lc code=end
 
-# @lcpr case=start
-# [1,2,3,4]\n
-# @lcpr case=end
-
+#
 # @lcpr case=start
 # [1,2,3,4,5]\n
 # @lcpr case=end
 
 # @lcpr case=start
-# [1]\n
+# [1,2,3,4,5,6]\n
+# @lcpr case=end
+
+# @lcpr case=start
+# [1,2,3,4,5,6,7,8,9,10]\n
+# @lcpr case=end
+
+# @lcpr case=start
+# [1,2,3,4,5,6,7,8,9,10,11]\n
 # @lcpr case=end
 
 # @lcpr case=start
@@ -55,5 +54,7 @@ end
 # @lcpr case=end
 
 # @lcpr case=start
-# []\n
+# [1]\n
 # @lcpr case=end
+
+#
