@@ -20,6 +20,61 @@
 # @param {ListNode} head
 # @return {ListNode}
 def sort_list(head)
+  return if head.nil?
+  return head if head.next.nil?
+
+  middle = find_middle(head)
+  # puts "head: #{head.val}, middle: #{middle.val}"
+
+  merge_list(sort_list(head), sort_list(middle))
+end
+
+def find_middle(head)
+  dummy = ListNode.new
+  dummy.next = head
+  slow = head
+  prev = dummy
+  fast = dummy
+  while fast&.next&.next
+    prev = slow
+    slow = slow.next
+    fast = fast.next.next
+  end
+  prev.next = nil
+  slow
+end
+
+def merge_list(head1, head2)
+  dummy = ListNode.new
+  curr = dummy
+  # puts "head1: #{head1.val}, head2: #{head2.val}"
+
+  while head1 || head2
+    if head1.nil?
+      curr.next = head2
+      head2 = head2.next
+      curr = curr.next
+      next
+    end
+
+    if head2.nil?
+      curr.next = head1
+      head1 = head1.next
+      curr = curr.next
+      next
+    end
+
+    if head1.val <= head2.val
+      curr.next = head1
+      head1 = head1.next
+    else
+      curr.next = head2
+      head2 = head2.next
+    end
+    curr = curr.next
+  end
+
+  dummy.next
 end
 # @lc code=end
 
