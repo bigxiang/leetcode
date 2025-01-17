@@ -4,6 +4,9 @@
 # [20] Valid Parentheses
 #
 
+# @lcpr-template-start
+
+# @lcpr-template-end
 # @lc code=start
 # @param {String} s
 # @return {Boolean}
@@ -16,16 +19,24 @@ def is_valid(s)
 
   stack = []
 
-  s.chars.each do |c|
-    if pairs.values.include?(c)
-      stack << c
-    else
-      next if stack.pop == pairs[c]
-      return false
-    end
+  s.each_char do |c|
+    stack.push(c) && next unless pairs.key?(c)
+
+    return false if stack.pop != pairs[c]
   end
 
   stack.empty?
 end
 # @lc code=end
 
+# @lcpr case=start
+# "({[((()))[]]})"\n
+# @lcpr case=end
+
+# @lcpr case=start
+# "(()]"\n
+# @lcpr case=end
+
+# @lcpr case=start
+# "(){}[]"\n
+# @lcpr case=end
