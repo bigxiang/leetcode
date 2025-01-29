@@ -15,30 +15,19 @@
  * @return {number}
  */
 var numDecodings = function(s) {
-  let groupable = 0, all = 0;
+  let pre, cur;
   for (let i = 0; i < s.length; i++) {
     if ((i === 0 || s[i-1] > '2' || s[i-1] === '0') && s[i] === '0') return 0;
 
-    if (i === 0) {
-      all = 1;
-      groupable = s[i] === '1' || s[i] === '2' ? 1 : 0;
-    } else {
-      if (s[i] === '1' || s[i] === '2') {
-        [groupable, all] = [all, all + groupable];
-      }
-      else if (s[i] === '0') {
-        [groupable, all] = [0, groupable];
-      }
-      else if (s[i-1] === '1' || s[i-1] === '2' && s[i] <= '6') {
-        [groupable, all] = [0, all + groupable];
-      }
-      else {
-        groupable = 0;
-      }
+    if (i === 0) pre = 1, cur = 1;
+    else {
+      if (s[i] === '0') [pre, cur] = [cur, pre];
+      else if (s[i-1] === '1' || s[i-1] === '2' && s[i] <= '6') [pre, cur] = [cur, cur + pre];
+      else pre = cur;
     }
   }
 
-  return all;
+  return cur;
 };
 // @lc code=end
 

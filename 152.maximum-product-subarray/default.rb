@@ -4,30 +4,39 @@
 # [152] Maximum Product Subarray
 #
 
+# @lcpr-template-start
+
+# @lcpr-template-end
 # @lc code=start
 # @param {Integer[]} nums
 # @return {Integer}
 def max_product(nums)
-  return 0 if nums.nil? || nums.empty?
-
-  current_max = 1
-  current_min = 1
-  max = -Float::INFINITY
-
-  nums.each do |n|
-    current_min, current_max = current_max, current_min if n < 0
-
-    current_max = [current_max * n, n].max
-    current_min = [current_min * n, n].min
-    max = [max, current_max].max
+  max = nums[0]
+  i_min = nums[0]
+  i_max = nums[0]
+  (1...nums.size).each do |i|
+    temp = [nums[i], nums[i] * i_min, nums[i] * i_max]
+    i_min = temp.min
+    i_max = temp.max
+    max = [max, i_max].max
   end
 
   max
 end
 # @lc code=end
 
-puts max_product([2,3,-2,4])
-puts max_product([2,-3,-2,4])
-puts max_product([-2,0,-1])
-puts max_product([-2])
-puts max_product([3,-1,4])
+# @lcpr case=start
+# [2,3,-2,4]\n
+# @lcpr case=end
+
+# @lcpr case=start
+# [-2,0,-1]\n
+# @lcpr case=end
+
+# @lcpr case=start
+# [3]\n
+# @lcpr case=end
+
+# @lcpr case=start
+# [3,2,-3,2,1,4,-5,2,7,9,3,-8,-2,-3,-4,3]\n
+# @lcpr case=end

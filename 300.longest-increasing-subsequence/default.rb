@@ -13,12 +13,10 @@ def length_of_lis(nums)
   dp = Array.new(nums.size)
   dp[0] = 1
   result = 1
-  (1..nums.size-1).each do |i|
+  (1..nums.size - 1).each do |i|
     max_length = 1
     (0...i).each do |j|
-      if nums[i] > nums[j]
-        max_length = [max_length, dp[j] + 1].max
-      end
+      max_length = [max_length, dp[j] + 1].max if nums[i] > nums[j]
     end
     dp[i] = max_length
     result = [dp[i], result].max
@@ -26,4 +24,3 @@ def length_of_lis(nums)
   result
 end
 # @lc code=end
-

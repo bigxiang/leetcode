@@ -4,37 +4,42 @@
 # [621] Task Scheduler
 #
 
+# @lcpr-template-start
+
+# @lcpr-template-end
 # @lc code=start
 # @param {Character[]} tasks
 # @param {Integer} n
 # @return {Integer}
 def least_interval(tasks, n)
-  task_count = Array.new(26, 0)
-  tasks.each do |t|
-    task_count[t.ord - 'A'.ord] += 1
-  end
+  task_count = tasks.group_by(&:itself).values.map(&:size).sort
+  max = task_count.last
+  max_count = task_count.count { |c| c == max }
 
-  task_count = task_count.sort
-  max_count = task_count[-1]
-  idle_time = (max_count - 1) * n
-
-  (task_count.size-2).downto(0) do |i|
-    break if idle_time <= 0
-
-    idle_time -= [max_count - 1, task_count[i]].min
-  end
-  idle_time = [0, idle_time].max
-
-  idle_time + tasks.size
+  [(max - 1) * (n + 1) + max_count, tasks.size].max
 end
 # @lc code=end
 
-puts least_interval(
-  ["A","A","A","B","B","B"],
-  0
-)
+# @lcpr case=start
+# ["A","A","A","B","B","B"]\n2\n
+# @lcpr case=end
 
-puts least_interval(
-  ["A","B","C","D","A","B","V"],
-  3
-)
+# @lcpr case=start
+# ["A","C","A","B","D","B"]\n1\n
+# @lcpr case=end
+
+# @lcpr case=start
+# ["A","A","A","B","B","B"]\n3\n
+# @lcpr case=end
+
+# @lcpr case=start
+# ["A"]\n3\n
+# @lcpr case=end
+
+# @lcpr case=start
+# ["B","C","D","A","A","A","A","G"]\n1\n
+# @lcpr case=end
+
+# @lcpr case=start
+# ["A","A","A","A","A","A","B","C","D","E","F","G"]\n1\n
+# @lcpr case=end
