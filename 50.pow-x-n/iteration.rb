@@ -17,8 +17,15 @@ def my_pow(x, n)
   return 1.0 if n == 0
   return x if n == 1
 
-  tmp = my_pow(x, n / 2)**2
-  n.even? ? tmp : tmp * x
+  result = 1
+  i = 0
+  while n > 0
+    d = n & 1
+    result *= x**(2**i) if d == 1
+    i += 1
+    n >>= 1
+  end
+  result
 end
 # @lc code=end
 
