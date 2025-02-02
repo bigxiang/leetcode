@@ -25,14 +25,10 @@ def right_side_view(root)
 
   result = []
   queue = [root]
-  queue_i = 0
-  while queue_i < queue.size
-    curr_size = queue.size
+  while queue.any?
     node = nil
-    while queue_i < curr_size
-      node = queue[queue_i]
-      queue_i += 1
-
+    queue.size.times do
+      node = queue.shift
       queue << node.left if node.left
       queue << node.right if node.right
     end
