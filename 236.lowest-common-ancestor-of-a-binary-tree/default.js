@@ -5,6 +5,10 @@
  * [236] 二叉树的最近公共祖先
  */
 
+
+// @lcpr-template-start
+
+// @lcpr-template-end
 // @lc code=start
 /**
  * Definition for a binary tree node.

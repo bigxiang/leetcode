@@ -26,25 +26,21 @@
 var pathSum = function(root, targetSum) {
   if (!root) return 0;
 
-  let count = 0;
-
-  count += dfs(root, targetSum);
-  count += pathSum(root.left, targetSum);
-  count += pathSum(root.right, targetSum);
-
-  return count;
+  return dfs(root, targetSum, 0, {});
 };
 
-var dfs = function(root, targetSum) {
+var dfs = function(root, targetSum, preSum, preSums) {
   if (!root) return 0;
 
+  const sum = preSum + root.val;
   let count = 0;
-  if (targetSum === root.val) {
-    count++;
-  }
+  if (sum === targetSum) count += 1;
+  if (preSums[sum - targetSum]) count += preSums[sum - targetSum];
 
-  count += dfs(root.left, targetSum - root.val);
-  count += dfs(root.right, targetSum - root.val);
+  preSums[sum] = (preSums[sum] || 0) + 1;
+  count += dfs(root.left, targetSum, sum, preSums);
+  count += dfs(root.right, targetSum, sum, preSums);
+  preSums[sum] -= 1;
 
   return count;
 }
