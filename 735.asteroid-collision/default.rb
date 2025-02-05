@@ -13,11 +13,13 @@
 # @return {Integer[]}
 def asteroid_collision(asteroids)
   stack = []
-  asteroids.each do |a|
-    stack.pop while stack.any? && stack.last > 0 && stack.last < -a
-    stack.pop && next if stack.any? && stack.last > 0 && stack.last == -a
-
-    stack.push(a) if stack.empty? || a > 0 || stack.last < 0
+  asteroids.each do |asteroid|
+    stack.pop while stack.any? && stack[-1] > 0 && stack[-1] < -asteroid
+    if stack.empty? || stack[-1] < 0 || asteroid > 0
+      stack << asteroid
+    elsif stack[-1] == -asteroid
+      stack.pop
+    end
   end
   stack
 end
@@ -37,7 +39,7 @@ end
 # @lcpr case=end
 
 # @lcpr case=start
-# [10,2,-5,7,-7,6,-3,13,-14]\n
+# [10,2,-5,7,-7,-17,6,-3,13,-15,-14]\n
 # @lcpr case=end
 
 # @lcpr case=start
