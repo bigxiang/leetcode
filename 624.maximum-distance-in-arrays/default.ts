@@ -11,15 +11,15 @@
 // @lcpr-template-end
 // @lc code=start
 function maxDistance(arrays: number[][]): number {
-  arrays.sort((a, b) => a[0] - b[0] === 0 ? a[a.length - 1] - b[b.length - 1] : a[0] - b[0]);
-  const minMin = arrays[0][0];
-  const minMax = arrays[0][arrays[0].length - 1];
-  const secMin = arrays[1][0];
-
-  arrays = arrays.slice(1).sort((a, b) => b[b.length - 1] - a[a.length - 1]);
-  const max = arrays[0][arrays[0].length - 1];
-
-  return Math.max(Math.abs(minMin - max), Math.abs(secMin - minMax));
+  let min = arrays[0][0];
+  let max = arrays[0][arrays[0].length - 1];
+  let result = 0;
+  for (let i = 1; i < arrays.length; i++) {
+    result = Math.max(result, Math.abs(arrays[i][0] - max), Math.abs(arrays[i][arrays[i].length - 1] - min));
+    min = Math.min(min, arrays[i][0]);
+    max = Math.max(max, arrays[i][arrays[i].length - 1]);
+  }
+  return result;
 };
 // @lc code=end
 
