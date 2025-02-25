@@ -58,4 +58,8 @@ build-iPhoneSimulator/
 # VSCode
 .vscode
 
+# Leetcode extension
 .lcpr_data
+
+# Mise
+mise.toml
